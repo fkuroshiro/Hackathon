@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 from app import models
 from app.database import engine
-from app.routers import events, places, quests, users
+from app.routers import events, places, quests, users, dev
 
 # Create all tables (for hackathon this is fine; in prod you'd use migrations)
 models.Base.metadata.create_all(bind=engine)
@@ -19,6 +19,7 @@ app.include_router(users.router)
 app.include_router(events.router)
 app.include_router(places.router)
 app.include_router(quests.router)
+app.include_router(dev.router) 
 
 
 @app.get("/")
