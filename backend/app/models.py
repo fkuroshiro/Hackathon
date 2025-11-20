@@ -13,11 +13,12 @@ event_attendees = Table(
 )
 
 
-class User(Base):
+class User(Base): #create users table, define columns and relationships
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
     display_name = Column(String, index=True, unique=False)
+    avatar_url = Column(String, nullable=True)              #avatar picture url
 
     created_events = relationship("Event", back_populates="creator")
     attending_events = relationship(
@@ -26,14 +27,27 @@ class User(Base):
         back_populates="attendees",
     )
 
+    photos = relationship("UserPhoto", back_populates="user", cascade="all, delete-orphan") # user photos relationship
 
-class Event(Base):
-    __tablename__ = "events"
+
+class UserPhoto(Base):              #create user photos table
+    __tablename__ = "user_photos"
 
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    image_url = Column(String, nullable=False)  # e.g. "/media/profile_pics/uuid.jpg"
+
+    user = relationship("User", back_populates="photos")
+
+
+class Event(Base): #create events table, define columns and relationships
+    __tablename__ = "events"
+
+    id = Column(Integer, primary_key=True, index=True) #unique event identifier
     title = Column(String, index=True)
     description = Column(String, nullable=True)
 
+    # Geolocation
     latitude = Column(Float, index=True)
     longitude = Column(Float, index=True)
 

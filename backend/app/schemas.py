@@ -2,10 +2,20 @@
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
-# ---------- USER SCHEMAS ----------
+# ======================
+# USER & PHOTOS
+# ======================
+
+class UserPhotoOut(BaseModel):
+    id: int
+    image_url: str
+
+    # Pydantic v2 style config
+    model_config = ConfigDict(from_attributes=True)
+
 
 class UserBase(BaseModel):
     display_name: str
@@ -17,12 +27,15 @@ class UserCreate(UserBase):
 
 class UserOut(UserBase):
     id: int
+    avatar_url: Optional[str] = None
+    photos: List[UserPhotoOut] = []
 
-    class Config:
-        from_attributes = True  # Pydantic v2 (or orm_mode = True for v1)
+    model_config = ConfigDict(from_attributes=True)
 
 
-# ---------- EVENT SCHEMAS ----------
+# ======================
+# EVENTS
+# ======================
 
 class EventBase(BaseModel):
     title: str
@@ -42,15 +55,16 @@ class EventOut(EventBase):
     created_by_id: int
     attendees: List[UserOut] = []
 
-    class Config:
-        from_attributes = True  # Pydantic v2 (or orm_mode = True for v1)
+    model_config = ConfigDict(from_attributes=True)
 
 
 class EventJoinRequest(BaseModel):
     user_id: int
 
 
-# ---------- PLACE / QUEST (stubs for now) ----------
+# ======================
+# PLACES
+# ======================
 
 class PlaceBase(BaseModel):
     name: str
@@ -65,9 +79,12 @@ class PlaceCreate(PlaceBase):
 class PlaceOut(PlaceBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
+
+# ======================
+# QUESTS
+# ======================
 
 class QuestBase(BaseModel):
     name: str
@@ -81,5 +98,4 @@ class QuestCreate(QuestBase):
 class QuestOut(QuestBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

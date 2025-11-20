@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from app import models
 from app.database import engine
 from app.routers import events, places, quests, users, dev
+from fastapi.staticfiles import StaticFiles
 
 # Create all tables (for hackathon this is fine; in prod you'd use migrations)
 models.Base.metadata.create_all(bind=engine)
@@ -12,6 +13,9 @@ app = FastAPI(
     title="Hackathon Gamified IRL Meetups API",
     version="0.1.0",
 )
+
+# Serve static files (profile pics only so far, could be extended)
+app.mount("/media", StaticFiles(directory="media"), name="media")
 
 
 # Include routers
