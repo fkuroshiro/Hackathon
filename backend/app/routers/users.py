@@ -6,8 +6,9 @@ from uuid import uuid4
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 
-from app import models, schemas
+from app import schemas
 from app.database import get_db
+from app import models
 
 router = APIRouter(
     prefix="/users",

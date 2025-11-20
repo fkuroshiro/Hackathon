@@ -1,8 +1,8 @@
 # app/main.py
 from fastapi import FastAPI
 
-from app import models
-from app.database import engine
+from app import models 
+from app.database import Base, engine
 from app.routers import events, places, quests, users, dev
 from fastapi.staticfiles import StaticFiles
 

@@ -4,10 +4,12 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app import models, schemas
+from app import schemas
 from app.database import get_db
 
 from pydantic import BaseModel
+
+from app import models 
 
 router = APIRouter(
     prefix="/quests",
