@@ -8,7 +8,7 @@ export default function ProfileScreen() {
   const { user, badges } = useGame();
 
   return (
-    <View contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.name}>{user.name}</Text>
       <XPBar xp={user.xp} level={user.level} />
 
@@ -31,7 +31,7 @@ export default function ProfileScreen() {
           unlocked={user.badgeIds.includes(badge.id)}
         />
       ))}
-    </View>
+    </ScrollView>
   );
 }
 

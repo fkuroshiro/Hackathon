@@ -1,17 +1,21 @@
 // App.js
-import TabNavigator from "./navigation/TabNavigator";
-import { GameProvider } from "./context/GameContext";
+import React from "react";
 import { useColorScheme } from "react-native";
-import Colors from "./src/theme/colors";
+import SafeScreen from "./components/SafeScreen";
 
-const scheme = useColorScheme();  // "light" | "dark"
-
-const Theme = scheme === "dark" ? Colors.dark : Colors.light;
+import TabNavigator from "./components/TabNavigator";
+import { GameProvider } from "./context/GameContext";
+import Colors from "./theme/Colors";
 
 export default function App() {
+  const scheme = useColorScheme(); // "light" or "dark"
+  const themeColors = scheme === "dark" ? Colors.dark : Colors.light;
+
   return (
-    <GameProvider>
-      <TabNavigator />
-    </GameProvider>
+    <SafeScreen themeColors={themeColors} style={{ backgroundColor: themeColors.background }}>
+      <GameProvider>
+        <TabNavigator />
+      </GameProvider>
+    </SafeScreen>
   );
 }

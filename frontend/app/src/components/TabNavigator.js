@@ -8,12 +8,12 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MapScreen from "../screens/MapScreen";
 import MissionsScreen from "../screens/MissionsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import TestUserApi from "../screens/TestUserApi";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["top"]} backgroundColor="#252424ff">
       <NavigationContainer>
         <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -28,6 +28,8 @@ export default function TabNavigator() {
             } else if (route.name === "Missions") {
               iconName = focused ? "flag" : "flag-outline";
             } else if (route.name === "Profile") {
+              iconName = focused ? "person" : "person-outline";
+            } else if (route.name === "TestUserApi") {
               iconName = focused ? "person" : "person-outline";
             }
 
@@ -56,8 +58,8 @@ export default function TabNavigator() {
         <Tab.Screen name="Missions" component={MissionsScreen} />
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="TestUserApi" component={TestUserApi} />
       </Tab.Navigator>
       </NavigationContainer>
-    </SafeAreaView>
   );
 }
