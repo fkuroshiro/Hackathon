@@ -1,0 +1,26 @@
+# app/main.py
+from fastapi import FastAPI
+
+from app import models
+from app.database import engine
+from app.routers import events, places, quests, users
+
+# Create all tables (for hackathon this is fine; in prod you'd use migrations)
+models.Base.metadata.create_all(bind=engine)
+
+app = FastAPI(
+    title="Hackathon Gamified IRL Meetups API",
+    version="0.1.0",
+)
+
+
+# Include routers
+app.include_router(users.router)
+app.include_router(events.router)
+app.include_router(places.router)
+app.include_router(quests.router)
+
+
+@app.get("/")
+def read_root():
+    return {"message": "Hackathon backend is up"}
