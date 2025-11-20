@@ -2,23 +2,25 @@
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
+
 export default function MapScreen() {
   const region = {
-    latitude: 50.0755,      // example: Prague
-    longitude: 14.4378,
+    latitude: 49.1951,      // example: Prague
+    longitude: 16.6068,
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   };
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} initialRegion={region}>
+      <MapView style={styles.map} initialRegion={region} mapType="standard">
         <Marker
           coordinate={{ latitude: region.latitude, longitude: region.longitude }}
-          title="My Location"
-          description="Example marker in the city"
+          title="Sigma Event"
+          description="xdddddddd"
         />
       </MapView>
+
     </View>
   );
 }
