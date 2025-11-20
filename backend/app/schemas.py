@@ -27,10 +27,14 @@ class UserCreate(UserBase):
 
 class UserOut(UserBase):
     id: int
-    avatar_url: Optional[str] = None
-    photos: List[UserPhotoOut] = []
+    avatar_url: Optional[str] = None #avatar picture url
+    photos: List[UserPhotoOut] = [] #list of user's photos
+    total_xp: int  
+    level: int  
+    category_stats: List[UserCategoryStatOut] = [] #list of user's category stats
 
     model_config = ConfigDict(from_attributes=True)
+    
 
 
 # ======================
@@ -40,10 +44,11 @@ class UserOut(UserBase):
 class EventBase(BaseModel):
     title: str
     description: Optional[str] = None
-    latitude: float
-    longitude: float
+    latitude: float # event latitude
+    longitude: float # event longitude
     time_start: datetime
-    time_end: Optional[datetime] = None
+    time_end: Optional[datetime] = None 
+    category: Optional[str] = None # event category
 
 
 class EventCreate(EventBase):
@@ -97,5 +102,15 @@ class QuestCreate(QuestBase):
 
 class QuestOut(QuestBase):
     id: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+# ======================
+# USER CATEGORY STATS
+# ======================
+class UserCategoryStatOut(BaseModel):
+    category: str
+    xp: int
+    level: int
 
     model_config = ConfigDict(from_attributes=True)

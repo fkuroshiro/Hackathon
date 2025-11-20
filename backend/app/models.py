@@ -12,6 +12,17 @@ event_attendees = Table(
     Column("event_id", Integer, ForeignKey("events.id"), primary_key=True),
 )
 
+class UserCategoryStat(Base):               #table to track user stats per category
+    __tablename__ = "user_category_stats"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    category = Column(String, index=True, nullable=False)  # same string as Event.category
+
+    xp = Column(Integer, default=0, nullable=False)
+    level = Column(Integer, default=1, nullable=False)
+
+    user = relationship("User", back_populates="category_stats")
 
 class User(Base): #create users table, define columns and relationships
     __tablename__ = "users"
@@ -19,6 +30,9 @@ class User(Base): #create users table, define columns and relationships
     id = Column(Integer, primary_key=True, index=True)
     display_name = Column(String, index=True, unique=False)
     avatar_url = Column(String, nullable=True)              #avatar picture url
+
+    total_xp = Column(Integer, default=0, nullable=False)  #total xp of user
+    level = Column(Integer, default=1, nullable=False)    #user level
 
     created_events = relationship("Event", back_populates="creator")
     attending_events = relationship(
@@ -28,6 +42,7 @@ class User(Base): #create users table, define columns and relationships
     )
 
     photos = relationship("UserPhoto", back_populates="user", cascade="all, delete-orphan") # user photos relationship
+    category_stats = relationship("UserCategoryStat", back_populates="user", cascade="all, delete-orphan") #tracking users category stats
 
 
 class UserPhoto(Base):              #create user photos table
@@ -53,6 +68,8 @@ class Event(Base): #create events table, define columns and relationships
 
     time_start = Column(DateTime)
     time_end = Column(DateTime, nullable=True)
+
+    category = Column(String, index=True, nullable=True) # define event category
 
     created_by_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
@@ -80,3 +97,4 @@ class Quest(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, nullable=True)
+

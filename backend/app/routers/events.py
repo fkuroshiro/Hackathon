@@ -13,6 +13,40 @@ router = APIRouter(
     tags=["events"],
 )
 
+EVENT_JOIN_XP = 10  # XP awarded for joining an event
+EVENT_CREATE_XP = 20 # XP awarded for creating an event
+
+def compute_level_from_xp(xp: int) -> int:      #speaks for itself
+    # example: 0–99 => 1, 100–199 => 2, etc.
+    return 1 + xp // 100
+
+def award_xp_for_event(user: models.User, event: models.Event, xp_amount: int, db: Session) -> None: #method to awaed the xp
+    # --- GLOBAL XP ---
+    user.total_xp += xp_amount
+    user.level = compute_level_from_xp(user.total_xp)
+
+    # --- CATEGORY XP ---
+    if event.category:
+        stat = (
+            db.query(models.UserCategoryStat)
+            .filter(
+                models.UserCategoryStat.user_id == user.id,
+                models.UserCategoryStat.category == event.category,
+            )
+            .first()
+        )
+        if stat is None:
+            stat = models.UserCategoryStat(
+                user_id=user.id,
+                category=event.category,
+                xp=0,
+                level=1,
+            )
+            db.add(stat)
+
+        stat.xp += xp_amount
+        stat.level = compute_level_from_xp(stat.xp)
+
 
 def haversine_km(lat1, lon1, lat2, lon2) -> float:
     """
@@ -47,11 +81,15 @@ def create_event(
         longitude=event_in.longitude,
         time_start=event_in.time_start,
         time_end=event_in.time_end,
+        category=event_in.category, # set event category
         created_by_id=event_in.created_by_id,
     )
 
     event.attendees.append(creator)  # creator auto-joins
     db.add(event)
+
+    award_xp_for_event(creator, event, EVENT_CREATE_XP, db) #award xp for creating event
+
     db.commit()
     db.refresh(event)
     return event
@@ -108,6 +146,9 @@ def join_event(
 
     if user not in event.attendees:
         event.attendees.append(user)
+
+        award_xp_for_event(user, event, EVENT_JOIN_XP, db) #award xp for joining event
+
         db.commit()
         db.refresh(event)
 
