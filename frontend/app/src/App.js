@@ -1,6 +1,6 @@
 // App.js
-import TabNavigator from "./src/navigation/TabNavigator";
-import { GameProvider } from "./src/context/GameContext";
+import TabNavigator from "./navigation/TabNavigator";
+import { GameProvider } from "./context/GameContext";
 
 export default function App() {
   return (
