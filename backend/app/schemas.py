@@ -6,6 +6,16 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 # ======================
+# USER CATEGORY STATS
+# ======================
+class UserCategoryStatOut(BaseModel):
+    category: str
+    xp: int
+    level: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+# ======================
 # USER & PHOTOS
 # ======================
 
@@ -111,12 +121,4 @@ class QuestOut(QuestBase):
 
     model_config = ConfigDict(from_attributes=True)
 
-# ======================
-# USER CATEGORY STATS
-# ======================
-class UserCategoryStatOut(BaseModel):
-    category: str
-    xp: int
-    level: int
 
-    model_config = ConfigDict(from_attributes=True)
