@@ -3,8 +3,11 @@
 # dependencies
 node_modules/
 
-.pycache/
+# Python cache
 __pycache__/
+*.py[cod]
+*.pyo
+
 # logs
 
 # Expo
