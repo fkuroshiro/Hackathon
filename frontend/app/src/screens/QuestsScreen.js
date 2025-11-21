@@ -9,11 +9,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { getQuests } from "../services/quests";
+import SafeScreen from "../components/SafeScreen";
+import Colors from "../theme/Colors";
+import { useColorScheme } from "react-native";
+
+
 
 export default function QuestsScreen() {
   const [quests, setQuests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const scheme = useColorScheme(); // "light" or "dark"
+  const themeColors = scheme === "dark" ? Colors.dark : Colors.light;
 
   useEffect(() => {
     loadQuests();
@@ -63,27 +71,28 @@ export default function QuestsScreen() {
   }
 
   const renderItem = ({ item }) => (
-    <View style={styles.card}>
-      <Text style={styles.title}>{item.title}</Text>
+    <View style={[styles.card, { backgroundColor: themeColors.card, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 8 }]}>
+      <Text style={[styles.cardTitle, { color: themeColors.text }]}>{item.name}</Text>
       {item.description ? (
-        <Text style={styles.description}>{item.description}</Text>
+        <Text style={[styles.description, {color: themeColors.text}]}>{item.description}</Text>
       ) : null}
       <View style={styles.metaRow}>
-        <Text style={styles.xpText}>+{item.xp_reward} XP</Text>
+        <Text style={[styles.xpText, { color: themeColors.primary }]}>+{item.xp_reward} XP</Text>
         {item.is_daily && <Text style={styles.tag}>Daily</Text>}
       </View>
     </View>
   );
 
   return (
-    <View style={styles.container}>
+    <SafeScreen style={styles.container}>
+      <Text style={[styles.title]}>Weekly Quests</Text>
       <FlatList
         data={quests}
         keyExtractor={(item) => String(item.id)}
         renderItem={renderItem}
         contentContainerStyle={styles.listContent}
       />
-    </View>
+    </SafeScreen>
   );
 }
 
@@ -120,20 +129,25 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   card: {
-    backgroundColor: "white",
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
     elevation: 3,
-    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
   },
   title: {
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: "900",
+    margin: 8,
+    padding: 8,
+  },
+  cardTitle: {
+    fontSize: 18,
     fontWeight: "700",
-    marginBottom: 4,
+    marginBottom: 5,
+    paddingBottom: 10,
   },
   description: {
     fontSize: 14,
@@ -153,6 +167,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 999,
-    backgroundColor: "#eee",
+    backgroundColor: "#bbbb",
   },
 });

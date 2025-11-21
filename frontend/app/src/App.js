@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <GameProvider>
-      <SafeScreen themeColors={themeColors} style={{ backgroundColor: themeColors.background }} >
+      <SafeScreen themeColors={themeColors} style={{ backgroundColor: themeColors.background }}>
         <TabNavigator />
       </SafeScreen>
     </GameProvider>

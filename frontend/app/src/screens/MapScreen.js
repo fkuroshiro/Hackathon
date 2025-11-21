@@ -89,6 +89,7 @@ export default function MapScreen() {
               }}
               title={ev.title}
               description={ev.description}
+              category={ev.category}
             />
           ))}
       </MapView>
