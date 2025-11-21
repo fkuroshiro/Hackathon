@@ -8,7 +8,6 @@ import { useColorScheme } from "react-native";
 import MapScreen from "../screens/MapScreen";
 import MissionsScreen from "../screens/MissionsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import TestUserApi from "../screens/TestUserApi";
 
 import Colors from "../theme/Colors";
 
@@ -64,7 +63,6 @@ export default function TabNavigator() {
         <Tab.Screen name="Missions" component={MissionsScreen} />
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
-        {/* <Tab.Screen name="TestUserApi" component={TestUserApi} /> */}
       </Tab.Navigator>
       </NavigationContainer>
   );
