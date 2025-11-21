@@ -6,7 +6,7 @@ import { useColorScheme } from "react-native";
 
 
 import MapScreen from "../screens/MapScreen";
-import MissionsScreen from "../screens/MissionsScreen";
+import QuestsScreen from "../screens/QuestsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
 import Colors from "../theme/Colors";
@@ -29,7 +29,7 @@ export default function TabNavigator() {
 
             if (route.name === "Map") {
               iconName = focused ? "map" : "map-outline";
-            } else if (route.name === "Missions") {
+            } else if (route.name === "Quests") {
               iconName = focused ? "flag" : "flag-outline";
             } else if (route.name === "Profile") {
               iconName = focused ? "person" : "person-outline";
@@ -60,7 +60,7 @@ export default function TabNavigator() {
           },
         })}
       >
-        <Tab.Screen name="Missions" component={MissionsScreen} />
+        <Tab.Screen name="Quests" component={QuestsScreen} />
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>

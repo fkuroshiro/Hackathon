@@ -10,11 +10,13 @@ import MapView, { Marker } from "react-native-maps";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { getEvents } from "../services/events";
 
+
 export default function MapScreen() {
   const mapRef = useRef(null);
   const [userLocation, setUserLocation] = useState(null);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   const brnoRegion = {
     latitude: 49.1951,
@@ -77,24 +79,25 @@ export default function MapScreen() {
         showsUserLocation
         onUserLocationChange={handleUserLocationChange}
       >
-        {events.map((ev) => (
-          <Marker
-            key={ev.id}
-            coordinate={{
-              latitude: ev.latitude,
-              longitude: ev.longitude,
-            }}
-            title={ev.title}
-            description={ev.description}
-          />
-        ))}
+        {Array.isArray(events) &&
+          events.map((ev) => (
+            <Marker
+              key={ev.id}
+              coordinate={{
+                latitude: ev.latitude,
+                longitude: ev.longitude,
+              }}
+              title={ev.title}
+              description={ev.description}
+            />
+          ))}
       </MapView>
 
       <TouchableOpacity
         style={styles.myLocationButton}
         onPress={goToMyLocation}
       >
-        <Ionicons name="locate" size={26} color="#007AFF" />
+        <Ionicons name="locate" size={26} color={"#9F7AEA"}/>
       </TouchableOpacity>
     </View>
   );
@@ -116,11 +119,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 30,
     right: 20,
-    backgroundColor: "white",
+    backgroundColor: "#121214",
     padding: 10,
     borderRadius: 999,
     elevation: 5,
-    shadowColor: "#000",
+    shadowColor: "#121214",
     shadowOpacity: 0.25,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },

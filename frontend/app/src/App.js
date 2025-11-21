@@ -13,10 +13,10 @@ export default function App() {
   const themeColors = scheme === "dark" ? Colors.dark : Colors.light;
 
   return (
-    <SafeScreen themeColors={themeColors} style={{ backgroundColor: themeColors.background }}>
-      <GameProvider>
+    <GameProvider>
+      <SafeScreen themeColors={themeColors} style={{ backgroundColor: themeColors.background }} >
         <TabNavigator />
-      </GameProvider>
-    </SafeScreen>
+      </SafeScreen>
+    </GameProvider>
   );
 }
