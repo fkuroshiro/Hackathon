@@ -27,7 +27,6 @@ class UserCreate(UserBase):
 
 class UserOut(UserBase):
     id: int
-    UserCategoryStatOut = None ## Placeholder for forward reference ##
     avatar_url: Optional[str] = None #avatar picture url
     photos: List[UserPhotoOut] = [] #list of user's photos
     total_xp: int  
