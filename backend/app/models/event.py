@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -21,6 +21,9 @@ class Event(Base):
     time_end = Column(DateTime, nullable=True)
 
     category = Column(String, index=True, nullable=True)
+
+    is_official = Column(Boolean, default=False, nullable=False)
+    reward_text = Column(String, nullable=True)  # discount/special offer reward or similar
 
     created_by_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 

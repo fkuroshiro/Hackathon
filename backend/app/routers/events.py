@@ -16,6 +16,8 @@ router = APIRouter(
 
 EVENT_JOIN_XP = 10  # XP awarded for joining an event
 EVENT_CREATE_XP = 20 # XP awarded for creating an event
+OFFICIAL_EVENT_BONUS_XP = 30  # extra XP for official events (tweak if you want)
+
 
 def compute_level_from_xp(xp: int) -> int:      #speaks for itself
     # example: 0–99 => 1, 100–199 => 2, etc.
@@ -83,13 +85,20 @@ def create_event(
         time_start=event_in.time_start,
         time_end=event_in.time_end,
         category=event_in.category, # set event category
+        is_official=event_in.is_official,
+        reward_text=event_in.reward_text,
         created_by_id=event_in.created_by_id,
     )
 
     event.attendees.append(creator)  # creator auto-joins
     db.add(event)
 
-    award_xp_for_event(creator, event, EVENT_CREATE_XP, db) #award xp for creating event
+    xp_award = EVENT_CREATE_XP  #base xp for creating event
+
+    if event.is_official:                     #award bonus xp for official events conditioned on event type             
+        xp_award += OFFICIAL_EVENT_BONUS_XP
+
+    award_xp_for_event(creator, event, xp_award, db) #award xp for creating event
 
     db.commit()
     db.refresh(event)
@@ -128,6 +137,16 @@ def get_event(
     if event is None:
         raise HTTPException(status_code=404, detail="Event not found")
     return event
+
+@router.get("/official", response_model=List[schemas.EventOut]) #get official events
+def get_official_events(
+    db: Session = Depends(get_db),
+):
+    """
+    List all official events (e.g. partner events, sponsored stuff).
+    """
+    events = db.query(models.Event).filter(models.Event.is_official == True).all()
+    return events
 
 
 @router.post("/{event_id}/join", response_model=schemas.EventOut)

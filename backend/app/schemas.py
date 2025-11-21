@@ -50,6 +50,10 @@ class EventBase(BaseModel):
     time_end: Optional[datetime] = None 
     category: Optional[str] = None # event category
 
+    #official event and reward parameters
+    is_official: bool = False
+    reward_text: Optional[str] = None
+
 
 class EventCreate(EventBase):
     created_by_id: int = Field(..., description="ID of user creating the event")
