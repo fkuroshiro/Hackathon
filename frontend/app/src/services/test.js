@@ -1,28 +1,14 @@
 import API_URL from "../config/api";
 
 export async function testBackend() {
+  console.log("Testing:", `${API_URL}/ping`);
   try {
-    console.log("Calling:", `${API_URL}/users`);
-
-    const res = await fetch(`${API_URL}/users`);
-    console.log("Got response object");
-
+    const res = await fetch(`${API_URL}/ping`);
     console.log("Status:", res.status);
-    let text = await res.text();
-    console.log("Raw text:", text);
-
-    let data;
-    try {
-      data = JSON.parse(text);
-      console.log("JSON parsed:", data);
-    } catch (e) {
-      console.log("JSON parse error:", e);
-      throw e;
-    }
-
+    const data = await res.json();
+    console.log("Data:", data);
     return data;
   } catch (err) {
-    console.log("FETCH ERROR:", err);
-    throw err;
+    console.log("ERROR:", err);
   }
 }

@@ -41,4 +41,4 @@ def read_root():
 
 @app.get("/ping")
 def ping():
-    return {"ok": True}
+    return "ok"
