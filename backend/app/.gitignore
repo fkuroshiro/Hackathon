@@ -3,6 +3,10 @@
 # dependencies
 node_modules/
 
+.pycache/
+__pycache__/
+# logs
+
 # Expo
 .expo/
 dist/
