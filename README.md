@@ -49,9 +49,9 @@ Our goal is to:
 - Give users a reason to go outside, meet new people, and get rewarded for it.
 
 
-####TECH INFO:
+##TECH INFO:
 
-## Map & Nearby Events
+### Map & Nearby Events
 
 The mobile app shows a map of Brno with interest-based meetups placed as pins.
 
