@@ -31,7 +31,7 @@ class UserOut(UserBase):
     photos: List[UserPhotoOut] = [] #list of user's photos
     total_xp: int  
     level: int  
-    #category_stats: List[UserCategoryStatOut] = [] #list of user's category stats
+    category_stats: List[UserCategoryStatOut] = [] #list of user's category stats
 
     reputation_score: int # rep
 
