@@ -1,4 +1,5 @@
 // App.js
+import { ExpoRoot } from "expo-router";
 import React from "react";
 import { useColorScheme } from "react-native";
 import SafeScreen from "./components/SafeScreen";

@@ -1,11 +1,15 @@
-import React, { useRef, useState } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import React, { useRef, useEffect, useState } from "react";
+import { StyleSheet, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { getEvents } from "../services/events";
 
 export default function MapScreen() {
   const mapRef = useRef(null);
   const [userLocation, setUserLocation] = useState(null);
+
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const brnoRegion = {
     latitude: 49.1951,
@@ -13,6 +17,29 @@ export default function MapScreen() {
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   };
+
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
+  async function loadEvents() {
+    try {
+      const data = await getEvents();
+      setEvents(data);
+    } catch (err) {
+      console.log("Error loading events", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   const handleUserLocationChange = (event) => {
     const { coordinate } = event.nativeEvent;
@@ -52,8 +79,19 @@ export default function MapScreen() {
             description="Your current location"
           />
         )}
-      </MapView>
+        {events.map((ev) => (
+          <Marker
+            key={ev.id}
+            coordinate={{
+              latitude: ev.latitude,
+              longitude: ev.longitude,
+            }}
+            title={ev.title}
+            description={ev.description}
+          />
+      ))}
 
+      </MapView>
       <TouchableOpacity style={styles.myLocationButton} onPress={goToMyLocation}>
         <Ionicons name="locate" size={26} color="#007AFF" />
       </TouchableOpacity>
