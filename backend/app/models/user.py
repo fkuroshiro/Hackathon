@@ -17,6 +17,8 @@ class User(Base):
     total_xp = Column(Integer, default=0, nullable=False)
     level = Column(Integer, default=1, nullable=False)
 
+    reputation_score = Column(Integer, default=50, nullable=False) # 0-100 scale reputation score
+
     created_events = relationship("Event", back_populates="creator")
     attending_events = relationship(
         "Event",

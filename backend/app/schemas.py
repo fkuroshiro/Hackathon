@@ -33,6 +33,8 @@ class UserOut(UserBase):
     level: int  
     #category_stats: List[UserCategoryStatOut] = [] #list of user's category stats
 
+    reputation_score: int # rep
+
     model_config = ConfigDict(from_attributes=True)
     
 
