@@ -1,3 +1,4 @@
+# type: ignore[attr-defined]
 # app/routers/users.py
 from typing import List
 from pathlib import Path
