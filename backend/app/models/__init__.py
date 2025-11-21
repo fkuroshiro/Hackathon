@@ -13,7 +13,11 @@ event_attendees = Table(
 
 # Import model classes so "from app import models" still works
 from .user import User
+<<<<<<< HEAD
 from .photo import UserPhoto
+=======
+from .photo import UserPhoto         
+>>>>>>> 40c7d6b10c1c5a5e48091b763b5dad74c58895a9
 from .category_stat import UserCategoryStat
 from .event import Event
 from .place import Place

@@ -1,13 +1,13 @@
 # app/main.py
 from fastapi import FastAPI
 
-from app import models
-from app.database import engine
-from app.routers import events, places, quests, users, dev
+from app import models 
+from app.database import Base, engine
+from app.routers import events, places, quests, users, dev, leaderboard
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
-# Create all tables (for hackathon this is fine; in prod you'd use migrations)
+# Create all tables (would use migration for actual app)
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -32,6 +32,7 @@ app.include_router(events.router)
 app.include_router(places.router)
 app.include_router(quests.router)
 app.include_router(dev.router) 
+app.include_router(leaderboard.router)
 
 
 @app.get("/")

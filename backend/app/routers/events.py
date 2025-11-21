@@ -5,8 +5,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app import models, schemas
+from app import schemas
 from app.database import get_db
+from app import models
 
 router = APIRouter(
     prefix="/events",
@@ -106,7 +107,6 @@ def get_nearby_events(
     Very simple implementation:
     - load all events
     - filter in Python by Haversine distance
-    This is fine for a hackathon-scale app.
     """
     events = db.query(models.Event).all()
     nearby = []
