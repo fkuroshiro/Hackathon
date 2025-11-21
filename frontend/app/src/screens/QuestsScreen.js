@@ -71,7 +71,7 @@ export default function QuestsScreen() {
   }
 
   const renderItem = ({ item }) => (
-    <View style={[styles.card, { backgroundColor: themeColors.card, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 8 }]}>
+    <View style={[styles.card, { backgroundColor: themeColors.background, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 8 }]}>
       <Text style={[styles.cardTitle, { color: themeColors.text }]}>{item.name}</Text>
       {item.description ? (
         <Text style={[styles.description, {color: themeColors.text}]}>{item.description}</Text>
@@ -84,8 +84,8 @@ export default function QuestsScreen() {
   );
 
   return (
-    <SafeScreen style={styles.container}>
-      <Text style={[styles.title]}>Weekly Quests</Text>
+    <SafeScreen style={[styles.container, { backgroundColor: themeColors.surface }]}>
+      <Text style={[styles.title, { color: themeColors.text }]}>Weekly Quests</Text>
       <FlatList
         data={quests}
         keyExtractor={(item) => String(item.id)}

@@ -1,22 +1,28 @@
-// App.js
-import { ExpoRoot } from "expo-router";
+// src/App.js
 import React from "react";
-import { useColorScheme } from "react-native";
-import SafeScreen from "./components/SafeScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import TabNavigator from "./components/TabNavigator";
-import { GameProvider } from "./context/GameContext";
-import Colors from "./theme/Colors";
+import LeaderboardScreen from "./screens/LeaderboardScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const scheme = useColorScheme(); // "light" or "dark"
-  const themeColors = scheme === "dark" ? Colors.dark : Colors.light;
-
   return (
-    <GameProvider>
-      <SafeScreen themeColors={themeColors} style={{ backgroundColor: themeColors.background }}>
-        <TabNavigator />
-      </SafeScreen>
-    </GameProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MainTabs"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Leaderboard"
+          component={LeaderboardScreen}
+          options={{ title: "Leaderboard" }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

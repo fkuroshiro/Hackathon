@@ -40,9 +40,9 @@ export default function ProfileScreen() {
     user.nextLevelXp > 0 ? Math.min(user.xp / user.nextLevelXp, 1) : 0;
 
   return (
-    <SafeScreen style={styles.container}>
+    <SafeScreen style={[styles.container, { backgroundColor: themeColors.surface }]}>
       {/* Top profile section */}
-      <View style={[styles.topSection, { backgroundColor: themeColors.card, borderRadius: 12, padding: 12, marginBottom: 16, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4 }]}>
+      <View style={[styles.topSection, { backgroundColor: themeColors.background, borderRadius: 12, padding: 12, marginBottom: 16, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4 }]}>
         {/* Avatar */}
         <View
           style={[
@@ -71,7 +71,7 @@ export default function ProfileScreen() {
       </View>
 
       {/* XP + Level section */}
-      <View style={[styles.xpContainer, { backgroundColor: themeColors.card, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4 }]}>
+      <View style={[styles.xpContainer, { backgroundColor: themeColors.background, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4 }]}>
         <View style={styles.xpHeaderRow}>
           <Text style={[styles.xpLabel, { color: themeColors.text } ]}>Level {user.level}</Text>
           <Text style={[styles.xpValue, { color: themeColors.primary } ]}>
@@ -93,16 +93,16 @@ export default function ProfileScreen() {
 
       {/* Buttons: Badges & Hobbies */}
       <View style={styles.buttonsRow}>
-        <TouchableOpacity style={styles.chipButton}>
-          <Text style={styles.chipButtonText}>Badges</Text>
+        <TouchableOpacity style={[styles.chipButton, { backgroundColor: themeColors.background, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4, borderColor: themeColors.border }]}>
+          <Text style={[styles.chipButtonText, { color: themeColors.text }]}>Badges</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.chipButton}>
-          <Text style={styles.chipButtonText}>Hobbies</Text>
+        <TouchableOpacity style={[styles.chipButton, { backgroundColor: themeColors.background, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4, borderColor: themeColors.border }]}>
+          <Text style={[styles.chipButtonText, { color: themeColors.text }]}>Hobbies</Text>
         </TouchableOpacity>
       </View>
 
       {/* Photos horizontal ScrollView */}
-      <View style={[styles.photosSection, { backgroundColor: themeColors.card, borderRadius: 12, padding: 20, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4 }]}>
+      <View style={[styles.photosSection, { backgroundColor: themeColors.background, borderRadius: 12, padding: 20, shadowColor: themeColors.border, shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.8, shadowRadius: 4 }]}>
         <Text style={[styles.photosTitle, { color: themeColors.text }]}>Photos</Text>
         <ScrollView
           horizontal
