@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 from app.database import get_db, engine, Base
 from app import models
 
+from datetime import datetime, timezone
+
 
 router = APIRouter(
     prefix="/dev",
@@ -69,7 +71,7 @@ def seed_db(
     # 3) Create some events
     from datetime import datetime, timedelta
 
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     e1 = models.Event(
         title="Casual Chess at Náměstí Svobody",
