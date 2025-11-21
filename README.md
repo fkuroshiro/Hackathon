@@ -49,7 +49,10 @@ Our goal is to:
 - Give users a reason to go outside, meet new people, and get rewarded for it.
 
 
-##TECH INFO:
+
+
+
+### TECH INFO
 
 ### Map & Nearby Events
 
