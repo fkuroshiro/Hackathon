@@ -72,14 +72,8 @@ export default function MapScreen() {
         showsUserLocation={true}
         onUserLocationChange={handleUserLocationChange}
       >
-        {userLocation && (
-          <Marker
-            coordinate={userLocation}
-            title="You"
-            description="Your current location"
-          />
-        )}
-        {events.map((ev) => (
+        {Array.isArray(events) &&
+        events.map(e => (
           <Marker
             key={ev.id}
             coordinate={{
