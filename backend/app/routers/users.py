@@ -109,3 +109,46 @@ async def upload_user_photo(
     db.commit()
     db.refresh(user)  # refresh to include new photos
     return user
+
+@router.post("/{user_id}/reputation/set", response_model=schemas.UserOut)
+def set_user_reputation(
+    user_id: int,
+    value: int,
+    db: Session = Depends(get_db),
+):
+    """
+    DEV ONLY: Directly set a user's reputation_score (0-100).
+    In production you'd derive this from reviews instead.
+    """
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # clamp between 0 and 100 just to be safe
+    user.reputation_score = max(0, min(100, value))
+
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.post("/{user_id}/reputation/change", response_model=schemas.UserOut)
+def change_user_reputation(
+    user_id: int,
+    delta: int,
+    db: Session = Depends(get_db),
+):
+    """
+    DEV ONLY: Increment or decrement reputation_score by delta.
+    Example: delta=+10, delta=-5, etc.
+    """
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    new_value = user.reputation_score + delta
+    user.reputation_score = max(0, min(100, new_value))
+
+    db.commit()
+    db.refresh(user)
+    return user
